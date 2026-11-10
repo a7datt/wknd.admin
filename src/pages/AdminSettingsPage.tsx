@@ -28,6 +28,8 @@ import {
   Megaphone,
   Link2,
   Loader2,
+  BookOpen,
+  FileDown,
 } from "lucide-react";
 import { showConfirm } from "../components/CustomDialogContainer";
 
@@ -62,7 +64,7 @@ interface AdminSettingsPageProps {
   adminFetch: (url: string, options?: RequestInit) => Promise<Response>;
 }
 
-type SectionKey = "contact" | "privacy" | "data" | "maintenance" | "password" | "notifications" | "entry_popup";
+type SectionKey = "contact" | "privacy" | "data" | "maintenance" | "password" | "notifications" | "entry_popup" | "guide";
 
 const NOTIF_CATEGORIES: { key: string; label: string; icon: React.ReactNode }[] = [
   { key: "orders", label: "الطلبات الجديدة", icon: <ShoppingCart size={14} className="text-blue-500" /> },
@@ -149,6 +151,7 @@ export default function AdminSettingsPage({
     password: false,
     notifications: false,
     entry_popup: false,
+    guide: false,
   });
 
   // ── إشعارات المتصفح للأدمن ──
@@ -290,6 +293,22 @@ export default function AdminSettingsPage({
           <p className="text-[11px] text-gray-400 leading-tight">الدعم الفني، سياسة الخصوصية، قاعدة البيانات</p>
         </div>
       </div>
+
+      {/* دليل الأدمن */}
+      <SettingsSection id="guide" title="دليل الأدمن الشامل" icon={<BookOpen size={15} className="text-indigo-500" />} isOpen={openSections.guide} onToggle={toggleSection}>
+        <p className="text-xs text-gray-500 leading-relaxed">
+          كتيب PDF شامل يشرح كل صفحة وميزة في لوحة التحكم خطوة بخطوة، من الطلبات والدفعات إلى المسؤولين الثانويين والمخزون وطرق الدفع الآلية.
+        </p>
+        <a
+          href="/admin-guide.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          download="دليل-الأدمن-الشامل.pdf"
+          className="w-full flex items-center justify-center gap-2 bg-indigo-600 text-white py-3 rounded-lg text-sm font-bold hover:bg-indigo-700"
+        >
+          <FileDown size={16} /> تنزيل دليل الأدمن (PDF)
+        </a>
+      </SettingsSection>
 
       {/* التواصل */}
       <SettingsSection id="contact" title="التواصل" icon={<Phone size={15} className="text-blue-500" />} isOpen={openSections.contact} onToggle={toggleSection}>
